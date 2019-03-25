@@ -21,6 +21,24 @@ public class Utils {
         return output.toString();
     }
 
+    public static String readFileAsStringAndCleanup(String filepath){
+        StringBuilder output = new StringBuilder();
+
+        try (Scanner scanner = new Scanner(new File(filepath))) {
+
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine().replaceAll("\"","");
+//                String line = scanner.nextLine().replaceAll("\"", "").replaceAll("%", "");
+                output.append(line + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return output.toString();
+    }
+
+
     public static ArrayList<ElectionResult> parse2016ElectionResults(String data) {
         ArrayList<ElectionResult> electionResults = new ArrayList<>();
         data.split("\n");
